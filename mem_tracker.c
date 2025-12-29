@@ -27,6 +27,7 @@ static void add_node(void* addr, size_t size, const char* file, int line)
     newNode->size = size;
     newNode->line = line;
     strncpy(newNode->file, file, 255);
+    newNode->file[255] = '\0';
     newNode->next = head;
     head = newNode;
 }
@@ -89,6 +90,8 @@ void* my_realloc(void* ptr, size_t size, const char* file, int line)
             remove_node(temp);
         }
         add_node(newPtr, size, file, line);
+        totalAlloc++;
+        totalFree++;
     }
     else
     {
